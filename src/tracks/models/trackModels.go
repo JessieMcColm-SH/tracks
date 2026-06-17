@@ -1,16 +1,12 @@
 package models
 
-import (
-	"time"
-)
-
 type Track struct {
-	ID           string    `json:"id"`
-	CreationDate time.Time `json:"creation_date"`
-	FileLocation string    `json:"file_location"`
-	TrackTitle   string    `json:"track_title"`
-	ArtistId     string    `json:"artist_id"`
-	OriginId     string    `json:"origin_id"`
+	ID            string `json:"id"`
+	CreationDate  string `json:"creation_date"`
+	TrackLocation string `json:"track_location"`
+	TrackTitle    string `json:"track_title"`
+	ArtistId      int    `json:"artist_id"`
+	OriginId      int    `json:"origin_id"`
 }
 
 type Tag struct {

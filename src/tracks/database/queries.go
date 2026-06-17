@@ -139,6 +139,34 @@ func (r *TrackQueries) GetTag(ctx context.Context, id string) (models.Tag, error
 	return tag, err
 }
 
+func (r *TrackQueries) GetArtist(ctx context.Context, id string) (models.Artist, error) {
+	var artist models.Artist
+	sqlStatement := `
+	SELECT id, artist FROM artists
+	WHERE id = $1 `
+	row, err := r.DB.QueryContext(ctx, sqlStatement, id)
+	if err != nil {
+		return artist, err
+	}
+	row.Next()
+	err = row.Scan(&artist.ID, &artist.Artist)
+	return artist, err
+}
+
+func (r *TrackQueries) GetOrigin(ctx context.Context, id string) (models.Origin, error) {
+	var origin models.Origin
+	sqlStatement := `
+	SELECT id, origin FROM origins
+	WHERE id = $1 `
+	row, err := r.DB.QueryContext(ctx, sqlStatement, id)
+	if err != nil {
+		return origin, err
+	}
+	row.Next()
+	err = row.Scan(&origin.ID, &origin.Origin)
+	return origin, err
+}
+
 func (r *TrackQueries) GetAllTracks(ctx context.Context) ([]models.Track, error) {
 	var tracks = []models.Track{}
 	rows, err := r.DB.Query("SELECT id, creation_date, track_location, track_title, artist_id, origin_id FROM tracks")

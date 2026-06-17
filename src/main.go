@@ -29,6 +29,8 @@ func main() {
 	router.GET("/origins", trackHandler.ListOrigins)
 	router.GET("/tracks/:id", trackHandler.GetTrack)
 	router.GET("/tags/:id", trackHandler.GetTag)
+	router.GET("/artists/:id", trackHandler.GetArtist)
+	router.GET("/origins/:id", trackHandler.GetOrigin)
 	router.DELETE("/tracks/:id", trackHandler.DeleteTrack)
 	router.DELETE("/tags/:id", trackHandler.DeleteTag)
 	router.POST("/tracks", trackHandler.CreateTrack)

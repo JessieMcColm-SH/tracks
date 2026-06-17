@@ -16,6 +16,7 @@ func closeDB(database *sql.DB) {
 }
 
 func main() {
+	log.Println("hello")
 	DB := database.InitDB()
 	defer closeDB(DB)
 	rabbitQueries := database.NewTrackQueries(DB)
@@ -25,7 +26,7 @@ func main() {
 	//router.GET("/bunnies", trackHandler.ListTracks)
 	//router.GET("/bunnies/:id", trackHandler.GetRabbit)
 	//router.DELETE("/bunnies/:id", trackHandler.DeleteRabbit)
-	router.POST("/bunnies", trackHandler.CreateTrack)
+	router.POST("/tracks", trackHandler.CreateTrack)
 	//router.POST("/bunnies/:id", trackHandler.UpdateRabbit)
 
 	log.Fatal(router.Run("localhost:8080"))

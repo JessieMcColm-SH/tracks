@@ -5,7 +5,7 @@ import (
 )
 
 type Track struct {
-	ID           int       `json:"id"`
+	ID           string    `json:"id"`
 	CreationDate time.Time `json:"creation_date"`
 	FileLocation string    `json:"file_location"`
 	TrackTitle   string    `json:"track_title"`

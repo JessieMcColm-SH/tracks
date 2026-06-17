@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/google/uuid"
+
 	models "tracks/src/tracks/models"
 )
 
@@ -16,17 +18,16 @@ func NewTrackQueries(db *sql.DB) *TrackQueries {
 	return &TrackQueries{DB: db}
 }
 
-func (r *TrackQueries) CreateTrack(ctx context.Context, track models.Track) (int, error) {
+func (r *TrackQueries) CreateTrack(ctx context.Context, track models.Track) (string, error) {
+	id := uuid.New()
 	sqlStatement := `
-	INSERT INTO tracks (creation_date, file_location, track_title, artist_id, origin_id)
-	VALUES ($1, $2, $3, $4, $5)
-	RETURNING id`
-	id := 0
-	err := r.DB.QueryRowContext(ctx, sqlStatement, track.CreationDate, track.FileLocation, track.TrackTitle, track.ArtistId, track.OriginId).Scan(&id)
+	INSERT INTO tracks (id, creation_date, file_location, track_title, artist_id, origin_id)
+	VALUES ($1, $2, $3, $4, $5, $6)`
+	_, err := r.DB.ExecContext(ctx, sqlStatement, id.String(), track.CreationDate, track.FileLocation, track.TrackTitle, track.ArtistId, track.OriginId)
 	if err != nil {
-		return 0, err
+		return "", err
 	}
-	return id, err
+	return id.String(), err
 }
 
 func (r *TrackQueries) UpdateTrack(ctx context.Context, id string, track models.Track) error {

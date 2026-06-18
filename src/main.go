@@ -37,7 +37,7 @@ func main() {
 	router.POST("/tags", trackHandler.CreateTag)
 	router.POST("/origins", trackHandler.CreateOrigin)
 	router.POST("/artists", trackHandler.CreateArtist)
-	//router.POST("/bunnies/:id", trackHandler.UpdateRabbit)
+	router.POST("/track/:id", trackHandler.UpdateTrack)
 
 	log.Fatal(router.Run("localhost:8080"))
 }
